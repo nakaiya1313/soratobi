@@ -53,9 +53,16 @@
   .btn.alt.small{box-shadow:0 3px 0 #8a3414;}
   .adbox.big{width:min(96%,336px);min-height:120px;font-size:12px;}
   .adbox.big.live{min-height:0;height:auto;}
-  /* keep the big bottom ad clear of the (now longer) controls text + give it room to scroll into view */
-  #adSlotBig{margin-top:16px;}
-  #titleScreen{padding-bottom:calc(28px + env(safe-area-inset-bottom));}
+  /* big bottom ad: a self-contained box so the AdMax creative anchors INSIDE it
+     (position:relative) and reserves real layout space (min-height overrides the
+     .live collapse via #id specificity) — this stops it floating up over the text */
+  #adSlotBig{position:relative;min-height:300px;height:auto;margin-top:22px;
+    display:flex;align-items:flex-start;justify-content:center;}
+  #adSlotBig > *{max-width:100%;}
+  /* stack the title content from the top so spacing is deterministic and the ad is always reachable */
+  #titleScreen{justify-content:flex-start;
+    padding-top:calc(14px + env(safe-area-inset-top));
+    padding-bottom:calc(30px + env(safe-area-inset-bottom));}
   .thumb{width:46px;height:46px;border:2px solid var(--warn);object-fit:cover;display:none;background:#04161a;}
   .blink{animation:blink 1s steps(2,start) infinite;}@keyframes blink{to{opacity:.25;}}
   .big{font-size:clamp(26px,7vw,46px);color:var(--warn);text-shadow:2px 2px 0 #6b4a00;}
